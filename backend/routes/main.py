@@ -7,4 +7,4 @@ main = Blueprint('main', __name__)
 def ping():
     return jsonify({
         'status': 'ok'
-    },200)
+    }), 200
