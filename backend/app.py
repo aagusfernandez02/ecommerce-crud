@@ -4,9 +4,9 @@ load_dotenv(dotenv_path='../.env')
 from flask import Flask
 from config import Config
 from models import db
+from flask_jwt_extended import JWTManager
 from routes.main import main
 from routes.auth import auth
-from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
 app.config.from_object(Config)

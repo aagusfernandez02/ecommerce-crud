@@ -29,9 +29,9 @@ def role_required(role):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            current_user_id = get_jwt_identity()
-            user = User.query.get(current_user_id)
-            if user.role == role:
+            current_username = get_jwt_identity()
+            user = User.query.filter_by(username=current_username).first()
+            if user and user.role == role:
                 return f(*args, **kwargs)
             else:
                 # Acceso no autorizado

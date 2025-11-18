@@ -21,7 +21,7 @@ def login():
             }
         }), 401
     
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.username)
     return jsonify({
         'status': 'ok',
         'data': {
