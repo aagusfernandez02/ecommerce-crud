@@ -1,8 +1,4 @@
 import os
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
-
-login_manager = LoginManager()
 
 class Config:
     DB_USER = os.environ.get("MYSQL_USER")
@@ -14,3 +10,5 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get("SECRET_KEY")
+
+    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
