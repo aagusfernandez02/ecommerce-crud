@@ -7,13 +7,11 @@ import Navbar from '@/components/NavBar.vue';
   <v-app>
     <Navbar />
     <v-main>
-      <RouterView class="mainContent"/>
+      <RouterView/>
     </v-main>
   </v-app>
 </template>
 
 <style scoped lang="scss">
-.mainContent {
-  padding: 10px;
-}
+
 </style>

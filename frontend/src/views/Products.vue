@@ -1,4 +1,6 @@
 <script setup>
+import ProductCard from '@/components/ProductCard.vue';
+
 const productos = [
     { id: 1, nombre: 'Mochila', precio: 50000, stock: 10 },
     { id: 2, nombre: 'Cartera', precio: 60000, stock: 12 },
@@ -10,8 +12,32 @@ const productos = [
 </script>
 
 <template>
-    <h1>Productos</h1>
+    <main>
+        <h1>Productos</h1>
+        
+        <div class="products">
+            <ProductCard 
+                imgSrc="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+                title="Dados transparentes"
+            />
+            <ProductCard 
+                imgSrc="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
+                title="Dados transparentes"
+            />
+        </div>
+    </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+main {
+    @include main;
+
+    .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: start;
+        gap: 20px;
+    }
+}
 </style>
