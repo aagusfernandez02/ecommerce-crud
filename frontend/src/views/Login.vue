@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { login } from '@/services/api';
 import { useRouter } from 'vue-router';
+import { useGlobalStore } from '@/stores/global';
 
 const valid = ref(false);
 const username = ref('');
@@ -9,6 +10,8 @@ const password = ref('');
 const showPassword = ref(false);
 
 const router = useRouter();
+
+const globalStore = useGlobalStore();
 
 const usernameRule = [
     v => !!v || 'Username is required',
@@ -21,10 +24,14 @@ const passwordRule = [
 ];
 
 const handleSubmit = async () => {
+    globalStore.isLoading = true;
+
     let loginOk = await login(username.value, password.value);
     if( loginOk ) {
         router.push('/products');
     }
+
+    globalStore.isLoading = false;
 }
 
 const handleShowPasswordClick = () => {
