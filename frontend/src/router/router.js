@@ -20,7 +20,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
     if( to.meta.requiresAuth ) {
         const userStore = useUserStore();
-        if( userStore.getJwt() != null ) {
+        if( userStore.jwt != null ) {
             return true;
         }
         return { path: '/login' }

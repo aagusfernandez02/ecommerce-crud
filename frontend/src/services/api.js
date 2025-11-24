@@ -37,9 +37,8 @@ export const login = async (username, password) => {
     }
 
     const userStore = useUserStore();
-
-    userStore.setJwt(jwt);
-    userStore.setUser(user);
+    userStore.jwt = jwt;
+    userStore.user = user;
 
     return true;
 }
