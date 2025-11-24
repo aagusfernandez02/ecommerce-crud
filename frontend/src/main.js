@@ -15,14 +15,20 @@ import router from './router/router';
 import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+// Pinia
+import { createPinia } from 'pinia';
+
 const app = createApp(App)
 const vuetify = createVuetify({
   components,
   directives,
 })
+const pinia = createPinia();
 
 app.use(vuetify)
 app.use(router)
 app.use(Vue3Toastify, {autoClose: 3000})
+app.use(pinia)
+
 app.mount('#app')
 
