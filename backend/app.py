@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path='../.env')
 
 from flask import Flask
+from flask_cors import CORS
 from config import Config
 from models import db
 from flask_jwt_extended import JWTManager
@@ -9,6 +10,7 @@ from routes.main import main
 from routes.auth import auth
 
 app = Flask(__name__)
+CORS(app, origins=["*"], supports_credentials=True)
 app.config.from_object(Config)
 db.init_app(app)
 with app.app_context():
