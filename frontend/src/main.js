@@ -12,7 +12,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import router from './router/router'
 
 // Toastify
-import { createToastify } from 'vue3-toastify';
+import Vue3Toastify from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 const app = createApp(App)
@@ -27,6 +27,6 @@ const toastify = createToastify({
 
 app.use(vuetify)
 app.use(router)
-app.use(toastify);
+app.use(Vue3Toastify, {autoClose: 3000})
 app.mount('#app')
 
