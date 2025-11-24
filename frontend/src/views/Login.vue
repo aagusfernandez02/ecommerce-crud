@@ -1,11 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { login } from '@/services/api';
+import { useRouter } from 'vue-router';
 
 const valid = ref(false);
 const username = ref('');
 const password = ref('');
 const showPassword = ref(false);
+
+const router = useRouter();
 
 const usernameRule = [
     v => !!v || 'Username is required',
@@ -18,8 +21,10 @@ const passwordRule = [
 ];
 
 const handleSubmit = async () => {
-    console.log("Handle submit!")
-    await login(username.value, password.value);
+    let loginOk = await login(username.value, password.value);
+    if( loginOk ) {
+        router.push('/products');
+    }
 }
 
 const handleShowPasswordClick = () => {
@@ -50,7 +55,7 @@ const handleShowPasswordClick = () => {
                     </v-row>
                 </v-form>
             </v-card-text>
-            <v-card-actions>
+            <v-card-actions> 
                 <v-btn :disabled="!valid" @click="handleSubmit" color="#624CAB" variant="tonal"
                     class="ml-auto mr-0">Iniciar
                     sesión</v-btn>

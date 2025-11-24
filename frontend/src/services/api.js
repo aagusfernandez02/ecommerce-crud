@@ -33,15 +33,13 @@ export const login = async (username, password) => {
 
     } catch (error) {
         toast.error(error.response.data.data.message);
+        return false;
     }
 
-    if( jwt ) {
-        const userStore = useUserStore();
+    const userStore = useUserStore();
 
-        userStore.setJwt(jwt);
-        userStore.setUser(user);
+    userStore.setJwt(jwt);
+    userStore.setUser(user);
 
-        toast.success("Login exitoso!");
-    }
-
+    return true;
 }
