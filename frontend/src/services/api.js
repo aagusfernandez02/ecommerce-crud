@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'vue3-toastify';
+import { useUserStore } from '@/stores/user';
 
 export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -19,6 +20,8 @@ export const getToken = () => {
 
 export const login = async (username, password) => {
     let jwt = null;
+    let user = null;
+
     try {
         const res = await api.post('/login', {
             username,
@@ -26,13 +29,18 @@ export const login = async (username, password) => {
         });
         const response_json = res.data;
         jwt = response_json.data.jwt;
+        user = response_json.data.user;
 
     } catch (error) {
         toast.error(error.response.data.data.message);
     }
 
     if( jwt ) {
-        setToken(jwt);
+        const userStore = useUserStore();
+
+        userStore.setJwt(jwt);
+        userStore.setUser(user);
+
         toast.success("Login exitoso!");
     }
 
