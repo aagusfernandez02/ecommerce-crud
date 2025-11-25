@@ -1,14 +1,20 @@
 <script setup>
 import ProductCard from '@/components/ProductCard.vue';
+import { useGlobalStore } from '@/stores/global';
+import { useProductsStore } from '@/stores/products';
+import { onMounted } from 'vue';
 
-const productos = [
-    { id: 1, nombre: 'Mochila', precio: 50000, stock: 10 },
-    { id: 2, nombre: 'Cartera', precio: 60000, stock: 12 },
-    { id: 3, nombre: 'Bolsas de consorcio', precio: 1000, stock: 8 },
-    { id: 4, nombre: 'PlayStation 5', precio: 1000000, stock: 20 },
-    { id: 5, nombre: 'Xbox One', precio: 800000, stock: 15 },
-    { id: 6, nombre: 'Termo Stanley 0.8 L', precio: 65000, stock: 5 },
-]
+const productsStore = useProductsStore();
+const globalStore = useGlobalStore();
+
+
+onMounted(async () => {
+    globalStore.isLoading = true;
+    await productsStore.fetchProducts();
+    globalStore.isLoading = false;
+
+    console.log(productsStore.products)
+})
 </script>
 
 <template>
@@ -17,12 +23,12 @@ const productos = [
         
         <div class="products">
             <ProductCard 
-                imgSrc="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
-                title="Dados transparentes"
-            />
-            <ProductCard 
-                imgSrc="https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
-                title="Dados transparentes"
+                v-for="product in productsStore.products" 
+                :key="product.id" 
+                :imgSrc="product.image_url=='' ? 'https://placeholder.pics/svg/300' : product.image_url"
+                :title="product.name"
+                :description="product.description"
+                :price="product.price"
             />
         </div>
     </main>

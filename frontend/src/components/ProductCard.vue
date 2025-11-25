@@ -2,21 +2,23 @@
 const props = defineProps({
     imgSrc: String,
     title: String,
+    description: String,
+    price: Number
 })
 </script>
 
 <template>
     <v-card class="m-0 pb-2 card" max-width="300">
-        <v-img class="align-end" height="200" :src="props.imgSrc" cover>
-            <v-card-title>{{ props.title }}</v-card-title>
+        <v-img class="align-end" height="200" :src="props.imgSrc" contain>
+            <v-card-title>$ {{ props.price }}</v-card-title>
         </v-img>
 
         <v-card-subtitle class="pt-4">
-            Vendedor
+            {{ props.title }}
         </v-card-subtitle>
 
         <v-card-text class="text-justify description">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis deserunt laudantium nulla, ullam dolore voluptate reiciendis, alias dicta debitis suscipit quod iste eveniet dolores aliquam quam distinctio, repellendus temporibus vitae!
+            {{ props.description }}
         </v-card-text>
 
         <v-card-actions>
