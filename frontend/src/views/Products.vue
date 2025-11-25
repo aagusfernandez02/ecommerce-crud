@@ -1,10 +1,10 @@
 <script setup>
 import ProductCard from '@/components/ProductCard.vue';
 import { useGlobalStore } from '@/stores/global';
-import { useProductsStore } from '@/stores/products';
+import { useProductStore } from '@/stores/product';
 import { onMounted } from 'vue';
 
-const productsStore = useProductsStore();
+const productsStore = useProductStore();
 const globalStore = useGlobalStore();
 
 

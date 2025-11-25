@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useGlobalStore } from '@/stores/global';
 import { useUserStore } from '@/stores/user';
-import { useProductsStore } from '@/stores/products';
+import { useProductStore } from '@/stores/product';
 
 const valid = ref(false);
 const username = ref('');
@@ -14,7 +14,7 @@ const router = useRouter();
 
 const globalStore = useGlobalStore();
 const userStore = useUserStore();
-const productsStore = useProductsStore();
+const productsStore = useProductStore();
 
 const usernameRule = [
     v => !!v || 'Username is required',

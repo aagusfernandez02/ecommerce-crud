@@ -5,7 +5,7 @@ import { toast } from "vue3-toastify";
 import { useUserStore } from "./user";
 
 
-export const useProductsStore = defineStore('products', {
+export const useProductStore = defineStore('product', {
   state: () => ({
     products: [],
   }),
