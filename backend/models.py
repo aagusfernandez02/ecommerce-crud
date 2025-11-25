@@ -23,6 +23,22 @@ class User(db.Model):
             'username': self.username,
             'role': self.role
         }
+    
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    image_url = db.Column(db.String(255))
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'price': self.price,
+            'description': self.description,
+            'image_url': self.image_url
+        }
 
 
 def role_required(role):

@@ -12,7 +12,6 @@ def login():
     password = request_body.get('password')
 
     user = User.query.filter_by(username=username).first()
-    print(user)
     if not user or not check_password_hash(user.password, password):
         return jsonify({
             'status': 'error',

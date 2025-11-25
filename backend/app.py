@@ -8,8 +8,10 @@ from models import db
 from flask_jwt_extended import JWTManager
 from routes.main import main
 from routes.auth import auth
+from routes.products import products
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 CORS(app, origins=["*"], supports_credentials=True)
 app.config.from_object(Config)
 db.init_app(app)
@@ -24,6 +26,7 @@ jwt = JWTManager(app)
 # Blueprints
 app.register_blueprint(main)
 app.register_blueprint(auth)
+app.register_blueprint(products)
 
 
 if __name__ == "__main__":

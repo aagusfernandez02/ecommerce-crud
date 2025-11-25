@@ -10,28 +10,28 @@ def ping():
         'status': 'ok'
     }), 200
 
-@main.route('/products')
-@jwt_required()
-def products():
-    products = [
-        'Leche condensada',
-        'Té',
-        'Pan',
-        'Pizza',
-        'Hamburguesa',
-        'Queso',
-        'Yogur',
-        'Vino'
-    ]
-    return jsonify({
-        'status': 'ok',
-        'data': products
-    }), 200
+# @main.route('/products')
+# @jwt_required()
+# def products():
+#     products = [
+#         'Leche condensada',
+#         'Té',
+#         'Pan',
+#         'Pizza',
+#         'Hamburguesa',
+#         'Queso',
+#         'Yogur',
+#         'Vino'
+#     ]
+#     return jsonify({
+#         'status': 'ok',
+#         'data': products
+#     }), 200
 
-@main.route('/products-admin')
-@jwt_required()
-@role_required('admin')
-def products_admin():
+# @main.route('/products-admin')
+# @jwt_required()
+# @role_required('admin')
+# def products_admin():
     products = [
         {'description': 'Leche condensada', 'price': 3000, 'upc': '0011223344'},
         {'description': 'Té', 'price': 3000, 'upc': '0011223344'},
