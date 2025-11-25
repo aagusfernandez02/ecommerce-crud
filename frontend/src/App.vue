@@ -10,6 +10,13 @@ const globalStore = useGlobalStore();
 </script>
 
 <template>
+  <v-app>
+    <Navbar v-if="!routesWithoutNavbar.includes(route.path)"/>
+    <v-main>
+      <RouterView/>
+    </v-main>
+  </v-app>
+
   <!-- Loading spinner -->
   <v-overlay
       :model-value="globalStore.isLoading"
@@ -21,14 +28,6 @@ const globalStore = useGlobalStore();
       indeterminate
     ></v-progress-circular>
   </v-overlay>
-
-
-  <v-app>
-    <Navbar v-if="!routesWithoutNavbar.includes(route.path)"/>
-    <v-main>
-      <RouterView/>
-    </v-main>
-  </v-app>
 </template>
 
 <style scoped lang="scss">

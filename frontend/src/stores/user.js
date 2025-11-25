@@ -1,3 +1,4 @@
+import router from "@/router/router";
 import { api } from "@/services/api";
 import { defineStore } from "pinia";
 import { toast } from "vue3-toastify";
@@ -30,6 +31,11 @@ export const useUserStore = defineStore('user', {
       this.jwt = jwt;
       this.user = user;
       return true;
+    },
+    logout() {
+      this.jwt = null;
+      this.user = null;
+      router.push('/login');
     }
   }
 })
