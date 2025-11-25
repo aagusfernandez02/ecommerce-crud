@@ -1,7 +1,12 @@
 <script setup>
+import router from '@/router/router';
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
+
+const handleAdminPanel = () => {
+  router.push('/admin-panel');
+}
 
 const handleLogout = () => {
   userStore.logout();
@@ -25,6 +30,9 @@ const handleLogout = () => {
         <v-list>
           <v-list-item>
             {{ userStore.user?.username }}
+          </v-list-item>
+          <v-list-item v-if="userStore.user?.role == 'admin'" class="mouse-hover-click">
+            <v-list-item-title @click="handleAdminPanel"><v-icon class="mr-2">mdi-security</v-icon>Admin Panel</v-list-item-title>
           </v-list-item>
           <v-list-item class="mouse-hover-click border-t-md">
             <v-list-item-title @click="handleLogout"><v-icon class="mr-2">mdi-logout</v-icon>Sign Out</v-list-item-title>
