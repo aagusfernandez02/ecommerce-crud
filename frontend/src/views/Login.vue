@@ -44,8 +44,7 @@ const handleShowPasswordClick = () => {
     <main>
         <v-card class="login-card">
             <v-card-title class="text-center pb-2">Bienvenido al ecommerce</v-card-title>
-            <v-card-subtitle class="text-center pb-5">Ingrese su usuario y contraseña para iniciar
-                sesión</v-card-subtitle>
+            <v-card-subtitle class="text-center pb-5">Ingrese usuario y contraseña</v-card-subtitle>
             <v-card-text>
                 <v-form v-model="valid">
                     <v-row class="px-3">
@@ -89,6 +88,14 @@ main {
         border-radius: 5px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
         border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        width: 100%;
+        margin-left: 5%;
+        margin-right: 5%;
     }
 }
 </style>
