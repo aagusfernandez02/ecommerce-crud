@@ -1,4 +1,3 @@
-import router from "@/router/router";
 import { api } from "@/services/api";
 import { defineStore } from "pinia";
 import { toast } from "vue3-toastify";
@@ -22,7 +21,6 @@ export const useProductStore = defineStore('product', {
         });
         const data = res.data?.data;
         this.products = data;
-        console.log(this.products)
       } catch (error) {
         let errorMessage = error.response.data.data.message;
         toast.error(errorMessage);

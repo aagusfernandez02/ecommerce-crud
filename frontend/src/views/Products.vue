@@ -12,8 +12,6 @@ onMounted(async () => {
     globalStore.isLoading = true;
     await productsStore.fetchProducts();
     globalStore.isLoading = false;
-
-    console.log(productsStore.products)
 })
 </script>
 
