@@ -1,9 +1,20 @@
 <script setup>
+import { useModalStore } from '@/stores/modal';
+
+const modalStore = useModalStore();
+
+const handleOpenCreationProductModal = () => {
+    modalStore.createProduct = true;
+}
 </script>
 
 <template>
     <main>
         <h1 class="text-h4 text-center pt-2">Admin panel</h1>
+
+        <v-btn size="x-large" @click="handleOpenCreationProductModal">
+            CREAR PRODUCTO
+        </v-btn>
 
         <v-table class="mt-10">
             <thead>

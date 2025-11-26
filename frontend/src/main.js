@@ -7,6 +7,7 @@ import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import '@mdi/font/css/materialdesignicons.css';
+import { VFileUpload } from 'vuetify/labs/VFileUpload'
 
 // Router
 import router from './router/router';
@@ -20,7 +21,10 @@ import { createPinia } from 'pinia';
 
 const app = createApp(App)
 const vuetify = createVuetify({
-  components,
+  components: {
+    ...components,
+    VFileUpload
+  },
   directives,
 })
 const pinia = createPinia();

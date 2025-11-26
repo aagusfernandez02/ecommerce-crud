@@ -2,6 +2,7 @@
 import Navbar from '@/components/NavBar.vue';
 import { useRoute } from 'vue-router';
 import { useGlobalStore } from './stores/global';
+import CreateProductModal from './components/modals/CreateProductModal.vue';
 
 const route = useRoute();
 const routesWithoutNavbar = ['/login'];
@@ -17,6 +18,9 @@ const globalStore = useGlobalStore();
     </v-main>
   </v-app>
 
+  <!-- Modals -->
+  <CreateProductModal />
+
   <!-- Loading spinner -->
   <v-overlay
       :model-value="globalStore.isLoading"
@@ -31,5 +35,4 @@ const globalStore = useGlobalStore();
 </template>
 
 <style scoped lang="scss">
-
 </style>

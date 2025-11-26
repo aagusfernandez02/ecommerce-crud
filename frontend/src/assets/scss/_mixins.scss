@@ -1,5 +1,19 @@
+@use "@/assets/scss/_variables.scss" as *;
+
 @mixin main {
     padding: 10px;
     background-color: #eeeff3;
     min-height: 100%;
+}
+
+@mixin modal($width: 500px) {
+    width: $width;
+
+    @media (max-width: $breakpoint-tablet) {
+        width: 90%;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+        width: 100%;
+    }
 }

@@ -93,11 +93,18 @@ main {
     }
 }
 
-@media (max-width: 480px) {
-    .login-card {
-        width: 100%;
-        margin-left: 5%;
-        margin-right: 5%;
+@media (max-width: $breakpoint-tablet) {
+    main{
+        .login-card {
+            width: 80%;
+        }
+    }
+}
+@media (max-width: $breakpoint-mobile) {
+    main{
+        .login-card {
+            width: 95%;
+        }
     }
 }
 </style>
