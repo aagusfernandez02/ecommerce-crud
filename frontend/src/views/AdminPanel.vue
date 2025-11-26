@@ -12,10 +12,8 @@ const handleOpenCreationProductModal = () => {
     <main>
         <h1 class="text-h4 text-center pt-2">Admin panel</h1>
 
-        <v-btn size="x-large" @click="handleOpenCreationProductModal">
-            CREAR PRODUCTO
-        </v-btn>
-
+        <v-btn size="x-large" @click="handleOpenCreationProductModal" prepend-icon="mdi-plus" color="green">CREAR PRODUCTO</v-btn>
+<!-- 
         <v-table class="mt-10">
             <thead>
                 <tr>
@@ -45,7 +43,7 @@ const handleOpenCreationProductModal = () => {
                     <td>4000</td>
                 </tr>
             </tbody>
-        </v-table>
+        </v-table> -->
     </main>
 </template>
 
