@@ -4,11 +4,15 @@ import { useModalStore } from '@/stores/modal'
 import { useProductStore } from '@/stores/product';
 import { useGlobalStore } from '@/stores/global';
 import { onMounted } from 'vue';
+import { useSwal } from '@/composables/useSwal';
+import { toast } from 'vue3-toastify';
 
 
 const modalStore = useModalStore();
 const productsStore = useProductStore();
 const globalStore = useGlobalStore();
+
+const $swal = useSwal();
 
 const handleOpenCreationProductModal = () => {
     modalStore.createProduct = true;
@@ -24,8 +28,29 @@ const fetchProducts = async () => {
     globalStore.isLoading = false;
 }
 
-const handleDeleteProduct = (id) => {
-    console.log(`Delete product: ${id}`)
+const deleteProduct = async (id) => {
+    globalStore.isLoading = true;
+    const res = await productsStore.deleteProduct(id);
+    globalStore.isLoading = false;
+    if(res){
+        toast.success('Product deleted successfully');
+    }
+}
+
+const handleDeleteProduct = (id, name) => {
+    $swal.fire({
+        title: `This action cannot be undone`,
+        text: `Delete ${name}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            await deleteProduct(id);
+        }
+    });
 }
 
 const handleEditProduct = (id) => {
@@ -47,7 +72,7 @@ onMounted(async ()=>{
         <h1 class="text-h4 text-center pt-2">Admin panel</h1>
 
         <v-row justify="end" align="center" class="mr-5">
-            <v-btn size="x-large" @click="handleOpenCreationProductModal" prepend-icon="mdi-plus" color="green">CREAR PRODUCTO</v-btn>
+            <v-btn size="x-large" @click="handleOpenCreationProductModal" prepend-icon="mdi-plus" color="green">ADD PRODUCT</v-btn>
         </v-row>
 
         <v-table class="mt-10">
@@ -80,7 +105,7 @@ onMounted(async ()=>{
                     <td>
                         <v-tooltip text="Delete" location="top">
                             <template v-slot:activator="{ props }">
-                                <v-btn v-bind="props" color="red" variant="tonal" icon="mdi-delete" @click="handleDeleteProduct(product.id)" size="small"></v-btn>
+                                <v-btn v-bind="props" color="red" variant="tonal" icon="mdi-delete" @click="handleDeleteProduct(product.id, product.name)" size="small"></v-btn>
                             </template>
                         </v-tooltip>
                     </td>

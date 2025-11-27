@@ -12,7 +12,6 @@ export const useProductStore = defineStore('product', {
     async fetchProducts() {
       const userStore = useUserStore();
 
-      console.log("Fetching products...")
       try {
         const res = await api.get('/products', {
           headers: {
@@ -25,6 +24,26 @@ export const useProductStore = defineStore('product', {
         let errorMessage = error.response.data.data.message;
         toast.error(errorMessage);
       }
+    },
+    async deleteProduct(id) {
+      const userStore = useUserStore();
+
+      try {
+        const res = await api.delete(`/products/${id}`, {
+          headers: {
+            Authorization: `Bearer ${userStore.jwt}`
+          }
+        });
+        const data = res.data;
+        if (data.status == 'ok'){
+          this.products = this.products.filter(product => product.id != id);
+          return true; 
+        }
+      } catch (error) {
+        let errorMessage = error.response.data.data.message;
+        toast.error(errorMessage);
+      }
+      return false;
     }
   }
 })
