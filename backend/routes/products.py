@@ -40,3 +40,24 @@ def products_get_post():
         'data': [product.to_dict() for product in products]
     }), 200
         
+@products.route('/<int:id>', methods=['DELETE'])
+@jwt_required()
+def products_delete(id):
+    product = Product.query.filter_by(id=id).first()
+    if not product:
+        return jsonify({
+            'status': 'error',
+            'data': {
+                'message': 'Product not found'
+            }
+        }), 404
+
+    db.session.delete(product)
+    db.session.commit()
+
+    return jsonify({
+        'status': 'ok',
+        'data': {
+            'message': 'Product deleted successfully'
+        }
+    }), 200
