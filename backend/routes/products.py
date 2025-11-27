@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
-from models import Product, db
+from models import Product, db, role_required
 
 products = Blueprint('products', __name__, url_prefix='/products')
 
@@ -42,6 +42,7 @@ def products_get_post():
         
 @products.route('/<int:id>', methods=['DELETE'])
 @jwt_required()
+@role_required('admin')
 def products_delete(id):
     product = Product.query.filter_by(id=id).first()
     if not product:
