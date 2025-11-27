@@ -18,6 +18,7 @@ import 'vue3-toastify/dist/index.css';
 
 // Pinia
 import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -27,7 +28,7 @@ const vuetify = createVuetify({
   },
   directives,
 })
-const pinia = createPinia();
+const pinia = createPinia().use(piniaPluginPersistedstate);
 
 app.use(vuetify)
 app.use(router)

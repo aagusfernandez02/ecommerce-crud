@@ -37,5 +37,6 @@ export const useUserStore = defineStore('user', {
       this.user = null;
       router.push('/login');
     }
-  }
+  },
+  persist: true
 })
