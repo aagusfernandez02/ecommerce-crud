@@ -10,15 +10,17 @@ const props = defineProps({
 <template>
     <v-card class="m-0 pb-2 card" max-width="300">
         <v-img class="align-end" height="200" :src="props.imgSrc" contain>
-            <v-card-title>$ {{ props.price }}</v-card-title>
         </v-img>
-
-        <v-card-subtitle class="pt-4">
+        <v-card-title class="text-subtitle-1 font-weight-bold">
             {{ props.title }}
+        </v-card-title>
+
+        <v-card-subtitle class="text-subtitle-2">
+            $ {{ props.price }}
         </v-card-subtitle>
 
         <v-card-text class="text-justify description">
-            {{ props.description }}
+            <p>{{ props.description }}</p>
         </v-card-text>
 
         <v-card-actions>
@@ -31,3 +33,16 @@ const props = defineProps({
         </v-card-actions>
     </v-card>
 </template>
+
+<style lang="scss" scoped>
+.v-card {
+    width: 300px; 
+    max-height: 500px;
+
+    .v-card-text {
+        p {
+            @include text-clamp(3);
+        }
+    }
+}
+</style>

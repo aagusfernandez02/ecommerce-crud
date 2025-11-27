@@ -7,7 +7,7 @@ import { ref, watch } from 'vue';
 const modalStore = useModalStore();
 const userStore = useUserStore();
 
-const placeholderUrl = 'https://placehold.co/280x150';
+const placeholderUrl = 'https://placehold.jp/200?text=No+image';
 
 const name = ref('');
 const price = ref(0);

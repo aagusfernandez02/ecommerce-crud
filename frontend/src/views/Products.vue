@@ -17,13 +17,13 @@ onMounted(async () => {
 
 <template>
     <main>
-        <h1>Productos</h1>
+        <h1 class="text-h4 text-center pt-2">Productos</h1>
         
-        <div class="products">
+        <div class="products pt-4">
             <ProductCard 
                 v-for="product in productsStore.products" 
                 :key="product.id" 
-                :imgSrc="product.image_url=='' ? 'https://placeholder.pics/svg/300' : product.image_url"
+                :imgSrc="product.image_url=='' ? 'https://placehold.jp/200?text=No+image' : product.image_url"
                 :title="product.name"
                 :description="product.description"
                 :price="product.price"
