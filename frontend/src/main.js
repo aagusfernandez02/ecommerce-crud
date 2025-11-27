@@ -20,6 +20,10 @@ import 'vue3-toastify/dist/index.css';
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
+// Sweetalert2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 const app = createApp(App)
 const vuetify = createVuetify({
   components: {
@@ -34,6 +38,7 @@ app.use(vuetify)
 app.use(router)
 app.use(Vue3Toastify, {autoClose: 3000})
 app.use(pinia)
+app.use(VueSweetalert2);
 
 app.mount('#app')
 
