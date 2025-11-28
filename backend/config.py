@@ -14,5 +14,7 @@ class Config:
 
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
     JWT_COOKIE_SECURE = False
+    JWT_COOKIE_SAMESITE = None
+    JWT_COOKIE_HTTPONLY = True
     JWT_TOKEN_LOCATION = ["cookies"]
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
