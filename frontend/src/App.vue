@@ -2,12 +2,14 @@
 import Navbar from '@/components/NavBar.vue';
 import { useRoute } from 'vue-router';
 import { useGlobalStore } from './stores/global';
-import CreateProductModal from './components/modals/CreateProductModal.vue';
+import ProductModal from './components/modals/ProductModal.vue';
+import { useModalStore } from './stores/modal';
 
 const route = useRoute();
 const routesWithoutNavbar = ['/login'];
 
 const globalStore = useGlobalStore();
+const modalStore = useModalStore();
 </script>
 
 <template>
@@ -19,7 +21,7 @@ const globalStore = useGlobalStore();
   </v-app>
 
   <!-- Modals -->
-  <CreateProductModal />
+  <ProductModal v-model="modalStore.productModal" />
 
   <!-- Loading spinner -->
   <v-overlay

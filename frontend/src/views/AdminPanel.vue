@@ -14,8 +14,18 @@ const globalStore = useGlobalStore();
 
 const $swal = useSwal();
 
+const handleOpenEditProductModal = (product) => {
+    console.log("product")
+    console.log(product)
+
+    modalStore.productData = product;
+    modalStore.mode = 'edit';
+    modalStore.productModal = true;
+}
+
 const handleOpenCreationProductModal = () => {
-    modalStore.createProduct = true;
+    modalStore.mode = 'create';
+    modalStore.productModal = true;
 }
 
 const handleGoBack = () => {
@@ -53,8 +63,9 @@ const handleDeleteProduct = (id, name) => {
     });
 }
 
-const handleEditProduct = (id) => {
-    console.log(`Edit product: ${id}`)
+const handleEditProduct = (product) => {
+    console.log(`Edit product`)
+    handleOpenEditProductModal(product);
 }
 
 // Lifecycle
@@ -98,7 +109,7 @@ onMounted(async ()=>{
                     <td>
                         <v-tooltip text="Edit" location="top">
                             <template v-slot:activator="{ props }">
-                                <v-btn v-bind="props" color="blue" variant="tonal" icon="mdi-pencil" @click="handleEditProduct(product.id)" size="small"></v-btn>
+                                <v-btn v-bind="props" color="blue" variant="tonal" icon="mdi-pencil" @click="handleEditProduct(product)" size="small"></v-btn>
                             </template>
                         </v-tooltip>
                     </td>

@@ -21,7 +21,8 @@ export const useProductStore = defineStore('product', {
         const data = res.data?.data;
         this.products = data;
       } catch (error) {
-        let errorMessage = error.response.data.data.message;
+        console.log(error)
+        let errorMessage = error.response.data.msg;
         toast.error(errorMessage);
       }
     },
@@ -40,7 +41,7 @@ export const useProductStore = defineStore('product', {
           return true; 
         }
       } catch (error) {
-        let errorMessage = error.response.data.data.message;
+        let errorMessage = error.response.data.msg;
         toast.error(errorMessage);
       }
       return false;
