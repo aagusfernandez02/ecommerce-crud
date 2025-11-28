@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, db
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, set_access_cookies, unset_jwt_cookies, jwt_required, get_jwt_identity
 
 auth = Blueprint('auth', __name__)
 
@@ -57,3 +57,29 @@ def signup_post():
             'data': new_user.to_dict()
         }
     }), 201
+
+
+@auth.route('/logout', methods=['POST'])
+def logout():
+    response = jsonify({
+        'status': 'ok',
+        'data': {
+            'msg': 'logout successful'
+        }
+    })
+    unset_jwt_cookies(response)
+    return response, 200
+
+@auth.route("/check-auth")
+@jwt_required(optional=True)
+def check_auth():
+    identity = get_jwt_identity()
+    if not identity:
+        return jsonify({"logged_in": False}), 401
+    
+    user_identity = User.query.filter_by(id=int(identity)).first()
+
+    return jsonify({
+        "logged_in": True,
+        "user": user_identity.to_dict()
+    })

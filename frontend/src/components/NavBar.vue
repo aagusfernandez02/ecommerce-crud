@@ -1,15 +1,19 @@
 <script setup>
 import router from '@/router/router';
+import { useGlobalStore } from '@/stores/global';
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
+const globalStore = useGlobalStore();
 
 const handleAdminPanel = () => {
   router.push('/admin-panel');
 }
 
-const handleLogout = () => {
-  userStore.logout();
+const handleLogout = async () => {
+  globalStore.isLoading = true;
+  await userStore.logout();
+  globalStore.isLoading = false;
 };
 </script>
 

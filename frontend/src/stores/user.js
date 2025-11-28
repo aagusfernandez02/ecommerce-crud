@@ -1,5 +1,6 @@
 import router from "@/router/router";
 import { api } from "@/services/api";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { toast } from "vue3-toastify";
 
@@ -37,10 +38,10 @@ export const useUserStore = defineStore('user', {
       this.user = user;
       return true;
     },
-    logout() {
-      this.jwt = null;
+    async logout() {
       this.user = null;
-      router.push('/login');
+      await api.post('/logout');
+      router.push('/login')
     }
   },
   persist: true
