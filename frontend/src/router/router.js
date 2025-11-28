@@ -4,6 +4,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import AdminPanel from '@/views/AdminPanel.vue';
 import { toast } from 'vue3-toastify';
+import { useGlobalStore } from '@/stores/global';
 
 const routes = [
     { path: '/admin-panel', component: AdminPanel, meta: { requiresAuth: true, requiresAdmin: true } },
@@ -20,30 +21,34 @@ const router = createRouter({
     routes,
 })
 
-router.beforeEach((to, from) => {
-    const userStore = useUserStore();        
+router.beforeEach(async (to, from) => {
+    const userStore = useUserStore();
+    const globalStore = useGlobalStore();
+    globalStore.isLoading = true;
 
-    // Requiere admin
-    if( to.meta.requiresAdmin ) {
-        if( userStore.jwt != null && userStore.user != null ) {
-            if( userStore.user.role == 'admin' ) {
-                return true;
-            }
-            return false;
-        }
-
-
-        return { path: '/login' }
-    }
+    try {
+        const isLogged = await userStore.fetchUser();
     
-    // Requiere auth
-    if( to.meta.requiresAuth ) {
-        if( userStore.jwt != null ) {
-            return true;
+        // Ruta protegida
+        if (to.meta.requiresAuth && !isLogged) {
+            return '/login';
         }
-
-        return { path: '/login' }
+    
+        // Ruta protegida + requiere admin
+        if (to.meta.requiresAdmin) {
+            if (userStore.user.role !== 'admin') {
+                if(!isLogged){
+                    return '/login';
+                }
+                return from.path;
+            }
+        }
+    
+        return true;
+    } finally {
+        globalStore.isLoading = false;
     }
+
 });
 
 export default router;

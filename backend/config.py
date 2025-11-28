@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 class Config:
     DB_USER = os.environ.get("MYSQL_USER")
@@ -12,3 +13,6 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+    JWT_COOKIE_SECURE = False
+    JWT_TOKEN_LOCATION = ["cookies"]
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)

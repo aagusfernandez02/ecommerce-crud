@@ -20,14 +20,15 @@ def login():
             }
         }), 401
     
-    access_token = create_access_token(identity=user.username)
-    return jsonify({
+    access_token = create_access_token(identity=str(user.id))
+    response = jsonify({
         'status': 'ok',
         'data': {
-            'jwt': access_token,
             'user': user.to_dict()
         }
-    }), 200
+    })
+    set_access_cookies(response, access_token)
+    return response, 200
         
 
 @auth.route('/signup', methods=['POST'])

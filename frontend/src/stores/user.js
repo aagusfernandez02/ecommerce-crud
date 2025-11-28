@@ -5,13 +5,20 @@ import { toast } from "vue3-toastify";
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    jwt: null,
     user: null,
   }),
   actions: {
+    async fetchUser() {
+      try {
+        const res = await api.get('/check-auth');
+        this.user = res.data.user;
+        return true;
+      } catch (e) {
+        this.user = null;
+        return false;
+      }
+    },
     async login(username, password) {
-
-      let jwt = null;
       let user = null;
 
       try {
@@ -20,7 +27,6 @@ export const useUserStore = defineStore('user', {
           password
         });
         const response_json = res.data;
-        jwt = response_json.data.jwt;
         user = response_json.data.user;
 
       } catch (error) {
@@ -28,7 +34,6 @@ export const useUserStore = defineStore('user', {
         return false;
       }
 
-      this.jwt = jwt;
       this.user = user;
       return true;
     },
