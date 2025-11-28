@@ -20,21 +20,15 @@ const handleLogout = async () => {
 <template>
   <v-app-bar :elevation="3" :color="'var(--app-bar-color)'" class="appbar">
     <v-app-bar-title>Ecommerce</v-app-bar-title>
-
+    
     <template v-slot:append>
-      <!-- <v-btn icon>
-            <v-icon size="x-large">mdi-account-circle</v-icon>
-          </v-btn> -->
       <v-menu transition="slide-y-transition">
         <template v-slot:activator="{ props }">
-          <v-btn icon v-bind="props">
-            <v-icon size="x-large">mdi-account-circle</v-icon>
+          <v-btn append-icon="mdi-account-circle" v-bind="props" size="x-large">
+            {{ userStore.user?.username }}
           </v-btn>
         </template>
         <v-list>
-          <v-list-item>
-            {{ userStore.user?.username }}
-          </v-list-item>
           <v-list-item v-if="userStore.user?.role == 'admin'" class="mouse-hover-click">
             <v-list-item-title @click="handleAdminPanel"><v-icon class="mr-2">mdi-security</v-icon>Admin Panel</v-list-item-title>
           </v-list-item>
