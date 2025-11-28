@@ -13,11 +13,7 @@ export const useProductStore = defineStore('product', {
       const userStore = useUserStore();
 
       try {
-        const res = await api.get('/products', {
-          headers: {
-            Authorization: `Bearer ${userStore.jwt}`
-          }
-        });
+        const res = await api.get('/products');
         const data = res.data?.data;
         this.products = data;
       } catch (error) {
@@ -26,25 +22,28 @@ export const useProductStore = defineStore('product', {
         toast.error(errorMessage);
       }
     },
-    async deleteProduct(id) {
-      const userStore = useUserStore();
-
-      try {
-        const res = await api.delete(`/products/${id}`, {
-          headers: {
-            Authorization: `Bearer ${userStore.jwt}`
-          }
-        });
-        const data = res.data;
-        if (data.status == 'ok'){
-          this.products = this.products.filter(product => product.id != id);
-          return true; 
-        }
-      } catch (error) {
-        let errorMessage = error.response.data.msg;
-        toast.error(errorMessage);
+    async delete(id) {
+      const res = await api.delete(`/products/${id}`);
+      const data = res.data;
+      if (data.status == 'ok'){
+        this.products = this.products.filter(product => product.id != id);
       }
-      return false;
+    },
+    async create(data) {
+      let res = await api.post('/products', {
+          name: data.name,
+          price: data.price,
+          description: data.description,
+          image_url: data.image_url
+      });
+      
+      this.products.push(res.data.data.data);
+    },
+    async update(id, data) {
+      let res = await api.put(`/products/${id}`, data);
+
+      let index = this.products.findIndex(product => product.id == id);
+      this.products[index] = res.data.data.data;
     }
   }
 })

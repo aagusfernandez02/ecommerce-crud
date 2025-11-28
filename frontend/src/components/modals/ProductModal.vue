@@ -2,11 +2,13 @@
 import { api } from '@/services/api';
 import { useGlobalStore } from '@/stores/global';
 import { useModalStore } from '@/stores/modal';
+import { useProductStore } from '@/stores/product';
 import { ref, watch } from 'vue';
 import { toast } from 'vue3-toastify';
 
 const modalStore = useModalStore();
 const globalStore = useGlobalStore();
+const productStore = useProductStore();
 
 const placeholderUrl = 'https://placehold.jp/200?text=No+image';
 
@@ -23,22 +25,24 @@ const clearInputs = () => {
 
 const handleSubmit = async () => {
     try {
+        globalStore.isLoading = true;
+
         if (modalStore.mode == 'create') {
             // CREATE
-            await api.post('/products', {
+            await productStore.create({
                 name: modalStore.productData.name,
                 price: modalStore.productData.price,
                 description: modalStore.productData.description,
                 image_url: modalStore.productData.image_url
-            })
+            });
         } else if (modalStore.mode == 'edit') {
             // EDIT
-            await api.put(`/products/${modalStore.productData.id}`, {
+            await productStore.update(modalStore.productData.id, {
                 name: modalStore.productData.name,
                 price: modalStore.productData.price,
                 description: modalStore.productData.description,
                 image_url: modalStore.productData.image_url
-            })
+            });
         }
     } catch (error) {
         console.error(error);

@@ -39,11 +39,16 @@ const fetchProducts = async () => {
 }
 
 const deleteProduct = async (id) => {
-    globalStore.isLoading = true;
-    const res = await productsStore.deleteProduct(id);
-    globalStore.isLoading = false;
-    if(res){
-        toast.success('Product deleted successfully');
+    try {
+        globalStore.isLoading = true;
+        const res = await productsStore.delete(id);
+        if(res){
+            toast.success('Product deleted successfully');
+        }
+    } catch (error) {
+        toast.error(error.response.data.data.message);
+    } finally {
+        globalStore.isLoading = false;
     }
 }
 
