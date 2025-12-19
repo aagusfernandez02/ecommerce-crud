@@ -5,6 +5,8 @@ const props = defineProps({
     description: String,
     price: Number
 })
+
+defineEmits(['addToCart'])
 </script>
 
 <template>
@@ -29,6 +31,7 @@ const props = defineProps({
                 variant="tonal" 
                 icon="mdi-cart-plus" 
                 class="ml-auto mr-0"
+                @click="$emit('addToCart')"
             ></v-btn>
         </v-card-actions>
     </v-card>

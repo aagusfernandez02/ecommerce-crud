@@ -1,18 +1,24 @@
 <script setup>
+import { useShoppingCartStore } from '@/stores/shoppingCart';
 import ProductCard from '@/components/ProductCard.vue';
-import { useGlobalStore } from '@/stores/global';
 import { useProductStore } from '@/stores/product';
+import { useGlobalStore } from '@/stores/global';
 import { onMounted } from 'vue';
 
 const productsStore = useProductStore();
 const globalStore = useGlobalStore();
+const shoppingCartStore = useShoppingCartStore();
 
 
 onMounted(async () => {
     globalStore.isLoading = true;
     await productsStore.fetchProducts();
     globalStore.isLoading = false;
-})
+});
+
+const handleClickProduct = (product) => {
+    shoppingCartStore.addItem(product);
+}
 </script>
 
 <template>
@@ -27,6 +33,7 @@ onMounted(async () => {
                 :title="product.name"
                 :description="product.description"
                 :price="product.price"
+                @addToCart="handleClickProduct(product)"
             />
         </div>
     </main>
