@@ -32,6 +32,9 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
         if (!actualShoppingCartItem) return;
 
         actualShoppingCartItem.quantity -= quantity;
+    },
+    deleteItem(productId) {
+        this.items = this.items.filter(item => item.id != productId);
     }
   }
 })
