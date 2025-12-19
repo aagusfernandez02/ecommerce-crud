@@ -8,9 +8,43 @@ const shoppingCartStore = useShoppingCartStore();
 <template>
     <div class="pa-3">
         <h1 class="text-center text-h4">Shopping cart</h1>
-        <v-col>
-            <v-row v-for="item in shoppingCartStore.items" :key="item.id" justify="center" align="center" class="productRow">
-                <v-col cols="2">
+        <v-table>
+            <thead>
+                <tr>
+                    <th colspan="1"></th>
+                    <th class="text-center">Product</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Price</th>
+                    <th colspan="1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in shoppingCartStore.items" :key="item.id">
+                    <td class="pa-0">
+                        <img :src="item.image_url" class="productImage" :alt="`Image of ${item.name}`"/>
+                    </td>
+                    <td class="text-center">
+                        <p class>{{ item.name }}</p>
+                    </td>
+                    <td class="text-center">
+                        <v-row justify="space-around" align="center" class="px-2">
+                            <v-btn icon="mdi mdi-minus" variant="tonal" size="x-small" color="red" class="mr-1" :disabled="item.quantity<=1" @click="shoppingCartStore.decreaseQuantity(item.id, 1)"/>
+                            <p class="text-center">{{ item.quantity }}</p>
+                            <v-btn icon="mdi mdi-plus" variant="tonal" size="x-small" color="success" class="ml-1" @click="shoppingCartStore.increaseQuantity(item.id, 1)"/>
+                        </v-row>
+                    </td>
+                    <td class="text-center">
+                        <p class="text-center">${{ item.price * item.quantity }}</p>
+                    </td>
+                    <td class="pa-0">
+                        <v-btn icon="mdi mdi-close" class="deleteRowIcon" size="x-small" variant="plain" color="red" @click="shoppingCartStore.deleteItem(item.id)"/>   
+                    </td>
+                </tr>
+            </tbody>
+        </v-table>
+        <!-- <v-col>
+            <v-row v-for="item in shoppingCartStore.items" :key="item.id" justify="end" align="center" class="productRow" dense>
+                <v-col cols="2" class="pa-0">
                     <img :src="item.image_url" class="productImage" :alt="`Image of ${item.name}`"/>
                 </v-col>
                 <v-col cols="4">
@@ -19,18 +53,17 @@ const shoppingCartStore = useShoppingCartStore();
                 <v-col cols="3">
                     <v-row justify="space-around" align="center" class="px-2">
                         <v-btn icon="mdi mdi-minus" variant="tonal" size="x-small" color="red" class="mr-1" :disabled="item.quantity<=1" @click="shoppingCartStore.decreaseQuantity(item.id, 1)"/>
-                        {{ item.quantity }}
+                        <p class="text-center">{{ item.quantity }}</p>
                         <v-btn icon="mdi mdi-plus" variant="tonal" size="x-small" color="success" class="ml-1" @click="shoppingCartStore.increaseQuantity(item.id, 1)"/>
                     </v-row>
                 </v-col>
                 <v-col cols="2">
-                    ${{ item.price * item.quantity }}
+                    <p class="text-center">${{ item.price * item.quantity }}</p>
                 </v-col>
-                <v-col cols="1">
-                    <v-btn icon="mdi mdi-trash-can" class="deleteRowIcon" size="x-small" variant="tonal" color="red" @click="shoppingCartStore.deleteItem(item.id)"/>
-                </v-col>
+                <v-btn icon="mdi mdi-close" class="deleteRowIcon" size="x-small" variant="plain" color="red" @click="shoppingCartStore.deleteItem(item.id)"/>
             </v-row>
-        </v-col>
+            <v-divider class="mt-5"/>
+        </v-col> -->
     </div>
 </template>
 
@@ -39,16 +72,5 @@ const shoppingCartStore = useShoppingCartStore();
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-.productRow {
-    position: relative;
-
-    .deleteRowIcon {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-    }
 }
 </style>
