@@ -11,8 +11,6 @@ const userStore = useUserStore();
 const globalStore = useGlobalStore();
 const shoppingCartStore = useShoppingCartStore();
 
-const shoppingCartDrawer = ref(false);
-
 const handleAdminPanel = () => {
   router.push('/admin-panel');
 }
@@ -23,18 +21,10 @@ const handleLogout = async () => {
   globalStore.isLoading = false;
 };
 
-const handleOpenShoppingCartDrawer = () => {
-  if(shoppingCartStore.totalProducts == 0){
-    toast.error('Empty cart', {autoClose: 1500, position: 'bottom-right'});
-    return;
-  }
-  shoppingCartDrawer.value = !shoppingCartDrawer.value;
-}
-
 </script>
 
 <template>
-  <v-navigation-drawer v-model="shoppingCartDrawer" temporary :location="$vuetify.display.mobile ? 'bottom' : 'right'" width="600">
+  <v-navigation-drawer v-model="shoppingCartStore.navigationDrawerOpen" temporary :location="$vuetify.display.mobile ? 'bottom' : 'right'" width="600">
     <NavigationDrawer />
   </v-navigation-drawer>
 
@@ -62,7 +52,7 @@ const handleOpenShoppingCartDrawer = () => {
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn class="text-none ml-2" stacked @click="handleOpenShoppingCartDrawer">
+      <v-btn class="text-none ml-2" stacked @click="shoppingCartStore.handleOpenShoppingCartDrawer">
         <v-badge color="error" :content="shoppingCartStore.totalProducts">
           <v-icon>mdi-cart</v-icon>
         </v-badge>

@@ -8,7 +8,7 @@ const shoppingCartStore = useShoppingCartStore();
 <template>
     <div class="pa-3">
         <h1 class="text-center text-h4">Shopping cart</h1>
-        <v-table>
+        <v-table density="comfortable" class="mt-5">
             <thead>
                 <tr>
                     <th colspan="1"></th>
@@ -40,30 +40,15 @@ const shoppingCartStore = useShoppingCartStore();
                         <v-btn icon="mdi mdi-close" class="deleteRowIcon" size="x-small" variant="plain" color="red" @click="shoppingCartStore.deleteItem(item.id)"/>   
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="3"></td>
+                    <td class="text-center">
+                        <p class="text-center font-weight-bold">${{ shoppingCartStore.totalPrice }}</p>
+                    </td>
+                    <td></td>
+                </tr>
             </tbody>
         </v-table>
-        <!-- <v-col>
-            <v-row v-for="item in shoppingCartStore.items" :key="item.id" justify="end" align="center" class="productRow" dense>
-                <v-col cols="2" class="pa-0">
-                    <img :src="item.image_url" class="productImage" :alt="`Image of ${item.name}`"/>
-                </v-col>
-                <v-col cols="4">
-                    <p class="text-center">{{ item.name }}</p>
-                </v-col>
-                <v-col cols="3">
-                    <v-row justify="space-around" align="center" class="px-2">
-                        <v-btn icon="mdi mdi-minus" variant="tonal" size="x-small" color="red" class="mr-1" :disabled="item.quantity<=1" @click="shoppingCartStore.decreaseQuantity(item.id, 1)"/>
-                        <p class="text-center">{{ item.quantity }}</p>
-                        <v-btn icon="mdi mdi-plus" variant="tonal" size="x-small" color="success" class="ml-1" @click="shoppingCartStore.increaseQuantity(item.id, 1)"/>
-                    </v-row>
-                </v-col>
-                <v-col cols="2">
-                    <p class="text-center">${{ item.price * item.quantity }}</p>
-                </v-col>
-                <v-btn icon="mdi mdi-close" class="deleteRowIcon" size="x-small" variant="plain" color="red" @click="shoppingCartStore.deleteItem(item.id)"/>
-            </v-row>
-            <v-divider class="mt-5"/>
-        </v-col> -->
     </div>
 </template>
 
