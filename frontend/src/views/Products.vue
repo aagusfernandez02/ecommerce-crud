@@ -18,7 +18,7 @@ onMounted(async () => {
 
 const handleClickProduct = (product) => {
     shoppingCartStore.addItem(product);
-    shoppingCartStore.handleOpenShoppingCartDrawer();
+    shoppingCartStore.handleToggleShoppingCartDrawer();
 }
 </script>
 

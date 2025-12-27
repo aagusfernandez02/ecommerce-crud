@@ -49,6 +49,10 @@ const shoppingCartStore = useShoppingCartStore();
                 </tr>
             </tbody>
         </v-table>
+        <div class="d-flex justify-space-between align-center mx-5 mt-10">
+            <v-btn prepend-icon="mdi mdi-cancel" color="green" variant="outlined" @click="shoppingCartStore.clearShoppingCart()">Clear</v-btn>
+            <v-btn prepend-icon="mdi mdi-skip-forward" color="green">Checkout</v-btn>
+        </div>
     </div>
 </template>
 

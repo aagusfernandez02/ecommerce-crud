@@ -15,12 +15,19 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
         },
     },
     actions: {
-        handleOpenShoppingCartDrawer() {
+        handleToggleShoppingCartDrawer() {
             if (this.totalProducts == 0) {
                 toast.error('Empty cart', { autoClose: 1500, position: 'bottom-right' });
                 return;
             }
             this.navigationDrawerOpen = !this.navigationDrawerOpen;
+        },
+        closeShoppingCartDrawer() {
+            this.navigationDrawerOpen = false;
+        },
+        clearShoppingCart() {
+            this.items = [];
+            this.closeShoppingCartDrawer();
         },
         addItem(product) {
             let actualShoppingCartItem = this.items.find(item => item.id == product.id);
@@ -47,6 +54,9 @@ export const useShoppingCartStore = defineStore('shoppingCart', {
         },
         deleteItem(productId) {
             this.items = this.items.filter(item => item.id != productId);
+            if (this.totalPrice == 0) {
+                this.closeShoppingCartDrawer();
+            }
         }
     }
 })

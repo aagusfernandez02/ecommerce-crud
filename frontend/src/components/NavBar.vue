@@ -52,7 +52,7 @@ const handleLogout = async () => {
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn class="text-none ml-2" stacked @click="shoppingCartStore.handleOpenShoppingCartDrawer">
+      <v-btn class="text-none ml-2" stacked @click="shoppingCartStore.handleToggleShoppingCartDrawer">
         <v-badge color="error" :content="shoppingCartStore.totalProducts">
           <v-icon>mdi-cart</v-icon>
         </v-badge>
@@ -69,6 +69,8 @@ const handleLogout = async () => {
 .appbar {
   z-index: $z-index-app-bar !important;
   height: $app-bar-height !important;
+  background-image: url('../assets/images/light-background-1.png') !important; // https://app.haikei.app/
+  background-repeat: repeat !important;
 }
 
 .mouse-hover-click {

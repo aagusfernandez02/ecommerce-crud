@@ -30,7 +30,7 @@ const handleSubmit = async () => {
     globalStore.isLoading = true;
 
     let loginOk = await userStore.login(username.value, password.value);
-    if( loginOk ) {
+    if (loginOk) {
         router.push('/products');
     }
 
@@ -54,8 +54,9 @@ const handleShowPasswordClick = () => {
                             clear-icon="mdi-close"></v-text-field>
                     </v-row>
                     <v-row class="px-3 pt-1">
-                        <v-text-field v-model="password" :rules="passwordRule" label="Password" clearable clear-icon="mdi-close" :type="showPassword ? 'text' : 'password'">
-                            <template v-slot:append >
+                        <v-text-field v-model="password" :rules="passwordRule" label="Password" clearable
+                            clear-icon="mdi-close" :type="showPassword ? 'text' : 'password'">
+                            <template v-slot:append>
                                 <v-icon @click="handleShowPasswordClick">
                                     {{ showPassword ? 'mdi-eye-off' : 'mdi-eye' }}
                                 </v-icon>
@@ -64,7 +65,7 @@ const handleShowPasswordClick = () => {
                     </v-row>
                 </v-form>
             </v-card-text>
-            <v-card-actions> 
+            <v-card-actions>
                 <v-btn :disabled="!valid" @click="handleSubmit" color="#624CAB" variant="tonal"
                     class="ml-auto mr-0">Iniciar
                     sesión</v-btn>
@@ -76,8 +77,10 @@ const handleShowPasswordClick = () => {
 <style scoped lang="scss">
 main {
     height: 100%;
-    background: #A0DDFF;
-    background: radial-gradient(circle, rgba(160, 221, 255, 1) 0%, rgba(176, 214, 255, 1) 75%, rgba(193, 206, 254, 1) 100%);
+    //background: #A0DDFF;
+    //background: radial-gradient(circle, rgba(160, 221, 255, 1) 0%, rgba(176, 214, 255, 1) 75%, rgba(193, 206, 254, 1) 100%);
+    background-image: url('../assets/images/light-background-1.png'); // https://app.haikei.app/
+    background-repeat: repeat;
 
     display: flex;
     justify-content: center;
@@ -87,21 +90,23 @@ main {
         width: 500px;
         padding: 10px;
 
-        border-radius: 5px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px) saturate(90%);
+        background-color: rgba(224,224,224,0.6);
+        border: 1px solid rgba(224,224,224,0.25);
+        border-radius: 12px;
     }
 }
 
 @media (max-width: $breakpoint-tablet) {
-    main{
+    main {
         .login-card {
             width: 80%;
         }
     }
 }
+
 @media (max-width: $breakpoint-mobile) {
-    main{
+    main {
         .login-card {
             width: 95%;
         }
