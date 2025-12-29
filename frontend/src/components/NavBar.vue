@@ -10,6 +10,7 @@ import { toast } from 'vue3-toastify';
 const userStore = useUserStore();
 const globalStore = useGlobalStore();
 const shoppingCartStore = useShoppingCartStore();
+const menuOpened = ref(false);
 
 const handleAdminPanel = () => {
   router.push('/admin-panel');
@@ -32,12 +33,12 @@ const handleLogout = async () => {
     <v-app-bar-title>Ecommerce</v-app-bar-title>
 
     <template v-slot:append>
-      <v-menu transition="slide-y-transition">
+      <v-menu transition="slide-y-transition" v-model="menuOpened">
         <template v-slot:activator="{ props }" v-if="$vuetify.display.mobile">
           <v-btn icon="mdi-account-circle" v-bind="props" size="x-large"></v-btn>
         </template>
         <template v-slot:activator="{ props }" v-else>
-          <v-btn append-icon="mdi-account-circle" v-bind="props" size="x-large">
+          <v-btn :append-icon="menuOpened ? 'mdi-chevron-up' : 'mdi-chevron-down'" v-bind="props" size="x-large">
             {{ userStore.user?.username }}
           </v-btn>
         </template>
