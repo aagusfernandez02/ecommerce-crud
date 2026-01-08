@@ -1,13 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useGlobalStore } from '@/stores/global';
-import { useUserStore } from '@/stores/user';
-import { useProductStore } from '@/stores/product';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useGlobalStore } from "@/stores/global";
+import { useUserStore } from "@/stores/user";
+import { useProductStore } from "@/stores/product";
 
 const valid = ref(false);
-const username = ref('');
-const password = ref('');
+const username = ref("");
+const password = ref("");
 const showPassword = ref(false);
 
 const router = useRouter();
@@ -17,99 +17,117 @@ const userStore = useUserStore();
 const productsStore = useProductStore();
 
 const usernameRule = [
-    v => !!v || 'Username is required',
-    v => v.length >= 4 || 'Username must be at least 4 characters'
+  (v) => !!v || "Username is required",
+  (v) => v.length >= 4 || "Username must be at least 4 characters",
 ];
 
 const passwordRule = [
-    v => !!v || 'Password is required',
-    v => v.length >= 6 || 'Password must be at least 6 characters'
+  (v) => !!v || "Password is required",
+  (v) => v.length >= 6 || "Password must be at least 6 characters",
 ];
 
 const handleSubmit = async () => {
-    globalStore.isLoading = true;
+  globalStore.isLoading = true;
 
-    let loginOk = await userStore.login(username.value, password.value);
-    if (loginOk) {
-        router.push('/products');
-    }
+  let loginOk = await userStore.login(username.value, password.value);
+  if (loginOk) {
+    router.push("/products");
+  }
 
-    globalStore.isLoading = false;
-}
+  globalStore.isLoading = false;
+};
 
 const handleShowPasswordClick = () => {
-    showPassword.value = !showPassword.value;
-}
+  showPassword.value = !showPassword.value;
+};
 </script>
 
 <template>
-    <main>
-        <v-card class="login-card">
-            <v-card-title class="text-center pb-2">Bienvenido al ecommerce</v-card-title>
-            <v-card-subtitle class="text-center pb-5">Ingrese usuario y contraseña</v-card-subtitle>
-            <v-card-text>
-                <v-form v-model="valid">
-                    <v-row class="px-3">
-                        <v-text-field v-model="username" :rules="usernameRule" label="Username" clearable
-                            clear-icon="mdi-close"></v-text-field>
-                    </v-row>
-                    <v-row class="px-3 pt-1">
-                        <v-text-field v-model="password" :rules="passwordRule" label="Password" clearable
-                            clear-icon="mdi-close" :type="showPassword ? 'text' : 'password'">
-                            <template v-slot:append>
-                                <v-icon @click="handleShowPasswordClick">
-                                    {{ showPassword ? 'mdi-eye-off' : 'mdi-eye' }}
-                                </v-icon>
-                            </template>
-                        </v-text-field>
-                    </v-row>
-                </v-form>
-            </v-card-text>
-            <v-card-actions>
-                <v-btn :disabled="!valid" @click="handleSubmit" color="#624CAB" variant="tonal"
-                    class="ml-auto mr-0">Iniciar
-                    sesión</v-btn>
-            </v-card-actions>
-        </v-card>
-    </main>
+  <main>
+    <v-card class="login-card">
+      <v-card-title class="text-center pb-2"
+        >Bienvenido al ecommerce</v-card-title
+      >
+      <v-card-subtitle class="text-center pb-5"
+        >Ingrese usuario y contraseña</v-card-subtitle
+      >
+      <v-card-text>
+        <v-form v-model="valid">
+          <v-row class="px-3">
+            <v-text-field
+              v-model="username"
+              :rules="usernameRule"
+              label="Username"
+              clearable
+              clear-icon="mdi-close"
+            ></v-text-field>
+          </v-row>
+          <v-row class="px-3 pt-1">
+            <v-text-field
+              v-model="password"
+              :rules="passwordRule"
+              label="Password"
+              clearable
+              clear-icon="mdi-close"
+              :type="showPassword ? 'text' : 'password'"
+            >
+              <template v-slot:append>
+                <v-icon @click="handleShowPasswordClick">
+                  {{ showPassword ? "mdi-eye-off" : "mdi-eye" }}
+                </v-icon>
+              </template>
+            </v-text-field>
+          </v-row>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          :disabled="!valid"
+          @click="handleSubmit"
+          color="#624CAB"
+          variant="tonal"
+          class="ml-auto mr-0"
+          >Iniciar sesión</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+  </main>
 </template>
 
 <style scoped lang="scss">
 main {
-    height: 100%;
-    //background: #A0DDFF;
-    //background: radial-gradient(circle, rgba(160, 221, 255, 1) 0%, rgba(176, 214, 255, 1) 75%, rgba(193, 206, 254, 1) 100%);
-    background-image: url('../assets/images/light-background-1.png'); // https://app.haikei.app/
-    background-repeat: repeat;
+  height: 100%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-image: url("@/assets/images/light-background-1.avif");
+  background-size: cover;
 
-    .login-card {
-        width: 500px;
-        padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-        backdrop-filter: blur(10px) saturate(90%);
-        background-color: rgba(224,224,224,0.6);
-        border: 1px solid rgba(224,224,224,0.25);
-        border-radius: 12px;
-    }
+  .login-card {
+    width: 500px;
+    padding: 10px;
+
+    background-color: #fff;
+    box-shadow: 0px 15px 15px -10px rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+  }
 }
 
 @media (max-width: $breakpoint-tablet) {
-    main {
-        .login-card {
-            width: 80%;
-        }
+  main {
+    .login-card {
+      width: 80%;
     }
+  }
 }
 
 @media (max-width: $breakpoint-mobile) {
-    main {
-        .login-card {
-            width: 95%;
-        }
+  main {
+    .login-card {
+      width: 95%;
     }
+  }
 }
 </style>
